@@ -1,5 +1,3 @@
-
-
 // Random number of rounds between 3 and 10
 const numRounds= Math.floor(Math.random()*(10-3) + 3);
 
@@ -85,7 +83,7 @@ determineWinner();
 //create array of standard attacks and finishing power attaack to add to each hero object
 
 const selectAttacks = () => {
-    // array for 10 different default attacks
+    // array for 10 random default attacks
     const defaultAttacks = ['jabs', 'upper cuts', 'roundhouse kicks', 'body slams', 'eye gouges', 'sucker punches', 'gut punchs', 'head butts', 'kidney punchs', 'flying kicks'];
 
 
@@ -108,8 +106,9 @@ const selectAttacks = () => {
 
 };
 selectAttacks();
-// mainEvent selects either a default attack or a special power attack and generates the fight text.
 
+
+// mainEvent selects either a default attack or a special power attack and generates the fight text.
 const mainEvent = () => {
     console.log('DC HEROES vs MARVEL HEROES! ')
     console.log('It is time to determine which is the strongest universe of superheroes once and for all!');
@@ -129,21 +128,9 @@ const mainEvent = () => {
                 console.log(marvelHero._name + ' decides the match has gone on long enough and uses ' + marvelHero.finishingMove + ' to defeat the weakened '+ dcHero._name)
             }
         };
-        //Marvel attack and random select if default or super power attack
-
-
-    
-
-
 };
 
 mainEvent();
-//console.log(dcHero._name + ' defeats ' + marvelHero._name);
-
-//testing 
-//console.log(marvelHero._name + ' vs ' + dcHero._name);
-//console.log(dcHero);
-//console.log(marvelHero);
 
 
 
