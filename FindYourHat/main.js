@@ -42,9 +42,17 @@ class Field {
             for(let i=0; i< myField.length; i++) {
                 console.log(myField[i].join(''));
                 };
-                myField[0][0] = pathCharacter; //Player starting point
-                myField[2][2] = hat;  // hat starting point
 
+                //random placement of hat on the game board
+                const randomNum = (max) => {
+                    return Math.floor(Math.random() * Math.floor(max));
+                  };
+                let hatRandomRow = randomNum(numRow);
+                let hatRandomCol = randomNum(numCol);
+                myField[hatRandomRow][hatRandomCol] = hat;  // hat starting point
+
+
+                myField[0][0] = pathCharacter; //Player starting point
                 return myField;
         };
 
@@ -62,7 +70,7 @@ class Field {
         let hatLoc = [1, 2];
         let endGame = false; //used to flag when While game loop should end
 
-        //While loop logs field to screen and refreshed it between moves. Uses try, catch to determine if a move is out of bounds. Ends the loop when
+        //While loop logs field to screen and refreshed it between moves. Uses try/catch to determine if a move is out of bounds. Ends the loop when
         // player lands on hat, hole, or out of bounds.
         while (endGame === false)  {
             myField.print();
