@@ -16,66 +16,145 @@ class Field {
         console.log(this._field[i].join(''));
             }
           }
+
+    static generateField() {
+        const prompt = require('prompt-sync')({sigint: true});
+        const height = prompt('Enter a number for the height of the board: ');
+        const width = prompt('Enter a number for the width of the board: ');
+
+
+        const myField = new Array(10);
+        for (let i = 0; i < myField.length; i++) {
+            myField[i] = new Array(8).fill(fieldCharacter); // Creating an array of size 10 and filled of 8
+        }       
+
+
+        const fill = (height, width) => {
+        for( let i = 0; i < height; i++)
+
+            for(j = 0; j < width; j++){
+                    let randNum = Math.floor(Math.random() * 100);
+                if (randNum <= 20) {
+
+                        myField[i][j] = hole;
+
+                    }
+                }   
+
+            };
+            fill();
+    };
+
     startGame() {
         const prompt = require('prompt-sync')({sigint: true});
         //clears terminal screen to start game
         console.clear();
         let playerX = 0;
         let playerY = 0;
-        //inside the hatLoc array the X and Y coordinates are opposite..hatLoc[playerY][playerX]
         let hatLoc = [1, 2];
-        while (playerX !== hatLoc[0] || playerY !== hatLoc[1] || (this._field[playerY][playerX]) === hole) {
+        let endGame = false; //used to flah when While g game loop should end
+
+        //While loop logs field to screen and refreshed it between moves. Uses try, catch to determine if a move is out of bounds. Ends the loop when
+        // player lands on hat, hole, or out of bounds.
+        while (endGame === false)  {
             myField.print();
-            const direction = prompt('Pick a direction (u)p, (d)own, (l)eft, (r)igh: ');
+            const direction = prompt('Pick a direction (u)p, (d)own, (l)eft, (r)ight: ');
             switch (direction) {
                 case 'u':
-                    playerY --;
+                    try {
+                        playerY --;
+                        if(playerY < 0 || playerY > this._field.length - 1) {
+                            throw Error;
+                        }
+
+                      } catch(e) {
+                        console.log('You are out of bounds');
+                        endGame = true;
+                        break;
+                      }
                     if (this._field[playerY][playerX] === hole) {
                         console.log('You FELL in a hole!!!');
-                        playerX = hatLoc[0];
-                        playerY = hatLoc[1];
+                        endGame = true;
                     }  else if (this._field[playerY][playerX] === hat) {
                         console.log('YOU FOUND YOUR HAT!!');
+                        endGame = true;
                     } else {
                         console.clear();
                     }
 
                     this._field[playerY][playerX] = '*'
                     break;
+                    
                 case 'd':
-                    playerY ++;
+                    try {
+                        playerY ++;
+                        if(playerY < 0 || playerY > this._field.length - 1) {
+                            throw Error;
+                        }
+
+
+                      } catch(e) {
+                        console.log('You are out of bounds');
+                        endGame = true;
+                        break;
+                      }
                     if (this._field[playerY][playerX] === hole) {
                         console.log('You FELL in a hole!!!');
-                        playerX = hatLoc[0];
-                        playerY = hatLoc[1];
+                        endGame = true;
+
                     }  else if (this._field[playerY][playerX] === hat) {
                         console.log('YOU FOUND YOUR HAT!!');
+                        endGame = true;
+
                     } else {
                         console.clear();
                     }
                     this._field[playerY][playerX] = '*';
                     break;
+
                 case 'r':
-                    playerX ++;
+                   try {
+                        playerX ++;
+                        if(playerX < 0 || playerX > this._field.length - 1) {
+                            throw Error;
+                        }
+
+                      } catch(e) {
+                        console.log('You are out of bounds');
+                        endGame = true;
+                        break;
+                      }
                     if (this._field[playerY][playerX] === hole) {
                         console.log('You FELL in a hole!!!');
-                        playerX = hatLoc[0];
-                        playerY = hatLoc[1];
+                        endGame = true;
                     }  else if (this._field[playerY][playerX] === hat) {
                         console.log('YOU FOUND YOUR HAT!!');
+                        endGame = true;
                     } else {
                         console.clear();
                     }
                     this._field[playerY][playerX] = '*'
                     break;
+
                 case 'l':
-                    playerX --;
+                    try {
+                        playerX --;
+                        if(playerX < 0 || playerX > this._field.length - 1) {
+                            throw Error;
+                        }
+
+                      } catch(e) {
+                        console.log('You are out of bounds');
+                        endGame = true;
+                        break;
+                      }
                     if (this._field[playerY][playerX] === hole) {
                         console.log('You FELL in a hole!!!');
-                        playerX = hatLoc[0];
-                        playerY = hatLoc[1];
+                        endGame = true;
+
                     }  else if (this._field[playerY][playerX] === hat) {
                         console.log('YOU FOUND YOUR HAT!!');
+                        endGame = true;
                     } else {
                         console.clear();
                     }
@@ -84,8 +163,6 @@ class Field {
                 default: 
                     break;
             }
-        //    console.clear()  /*clears terminal to redraw board for next move*/
-           // console.log(this._field[playerY][playerX] = hole);
         };
 
         }
@@ -102,35 +179,23 @@ class Field {
 
 
 
-const myField = new Field([
+/*const myField = new Field([
     ['*', '░', 'O'],
     ['░', 'O', '░'],
     ['░', '^', '░'],
   ]);
 
-
-myField.startGame();
-
-
-
-/* Rewrite the While loop to be based of a new variable that is true/false for hole  or hat...might have to use 2...each switch/case will check 
-what you landed on and cnahge condition if needed and set flag of both variables
-create variables outside of loop and use them after loop to give win or loss message */
+ /* const myField = new Field([
+    ['*', '░', '░'],
+    ['░', '░', '░'],
+    ['░', '░', '░'],
+  ]);*/
 
 
+//myField.startGame();
+//Field.generateField();
+const myField = Field.generateField();
+//console.log(myField)
+//myField.startGame();
 
 
-
-//extra Code  --- delete later
-
-//myField.print();
-//myField._field [1][0] = 'P';
-//const prompt = require('prompt-sync')();
- 
-/*const direction = prompt('Pick a direction u, d, l, r: ');
-if (direction === 'u') {
-    console.log('You go Up');
-} else if (direction === 'd') {
-}*/
-//console.log(myField._field[1][1]);
-//myField.print();
