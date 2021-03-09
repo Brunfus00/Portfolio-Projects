@@ -18,32 +18,40 @@ class Field {
           }
 
     static generateField() {
-        const prompt = require('prompt-sync')({sigint: true});
-        const height = prompt('Enter a number for the height of the board: ');
-        const width = prompt('Enter a number for the width of the board: ');
-
-
-        const myField = new Array(10);
-        for (let i = 0; i < myField.length; i++) {
-            myField[i] = new Array(8).fill(fieldCharacter); // Creating an array of size 10 and filled of 8
-        }       
-
-
-        const fill = (height, width) => {
-        for( let i = 0; i < height; i++)
-
-            for(j = 0; j < width; j++){
-                    let randNum = Math.floor(Math.random() * 100);
-                if (randNum <= 20) {
-
-                        myField[i][j] = hole;
-
+            const prompt = require('prompt-sync')({sigint: true});
+            let numRow = prompt('Enter a number for the height of the board: ');
+            let numCol = prompt('Enter a number for the width of the board: ');
+            //convert user iniput from type string to number
+            numCol = numCol * 1;
+            numRow = numRow * 1;
+          const myField = new Array(numRow);
+          for (let i=0; i<myField.length; i++) {
+            myField[i] = new Array(numCol).fill(fieldCharacter); // Creating an array of size 10 and filled of 8
+          }
+        
+          for( let i = 0; i < numRow; i++)
+        
+            for(let j = 0; j < numCol; j++){
+                    let randNum = Math.floor(Math.random() * 100); //randomly select where 'holes' go
+                   if (randNum <= 10) {
+        
+                        myField[i][j] = hole; 
                     }
-                }   
+            }
+            //print field -- might be able to remove it in the actual game
+            for(let i=0; i< myField.length; i++) {
+                console.log(myField[i].join(''));
+                };
+                myField[0][0] = pathCharacter; //Player starting point
+                myField[2][2] = hat;  // hat starting point
 
-            };
-            fill();
-    };
+                return myField;
+        };
+
+
+
+
+
 
     startGame() {
         const prompt = require('prompt-sync')({sigint: true});
@@ -52,7 +60,7 @@ class Field {
         let playerX = 0;
         let playerY = 0;
         let hatLoc = [1, 2];
-        let endGame = false; //used to flah when While g game loop should end
+        let endGame = false; //used to flag when While game loop should end
 
         //While loop logs field to screen and refreshed it between moves. Uses try, catch to determine if a move is out of bounds. Ends the loop when
         // player lands on hat, hole, or out of bounds.
@@ -183,7 +191,7 @@ class Field {
     ['*', '░', 'O'],
     ['░', 'O', '░'],
     ['░', '^', '░'],
-  ]);
+  ]);*/
 
  /* const myField = new Field([
     ['*', '░', '░'],
@@ -192,10 +200,7 @@ class Field {
   ]);*/
 
 
-//myField.startGame();
-//Field.generateField();
-const myField = Field.generateField();
-//console.log(myField)
-//myField.startGame();
+const myField = new Field (Field.generateField());
+myField.startGame();
 
 
