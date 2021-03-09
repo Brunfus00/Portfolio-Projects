@@ -10,12 +10,54 @@ class Field {
         this._field = field;
     }
 
-
     print() {
         for(let i=0; i< this._field.length; i++) {
         console.log(this._field[i].join(''));
             }
           }
+<<<<<<< Updated upstream
+=======
+
+    static generateField() {
+            const prompt = require('prompt-sync')({sigint: true});
+            let numRow = prompt('Enter a number for the height of the board: ');
+            let numCol = prompt('Enter a number for the width of the board: ');
+            //convert user iniput from type string to number
+            numCol = numCol * 1;
+            numRow = numRow * 1;
+          const myField = new Array(numRow);
+          for (let i=0; i<myField.length; i++) {
+            myField[i] = new Array(numCol).fill(fieldCharacter); // Creating an array of size 10 and filled of 8
+          }
+        
+          for( let i = 0; i < numRow; i++)
+        
+            for(let j = 0; j < numCol; j++){
+                    let randNum = Math.floor(Math.random() * 100); //randomly select where 'holes' go
+                   if (randNum <= 10) {
+        
+                        myField[i][j] = hole; 
+                    }
+            }
+            //print field -- might be able to remove it in the actual game
+            for(let i=0; i< myField.length; i++) {
+                console.log(myField[i].join(''));
+                };
+
+                //random placement of hat on the game board
+                const randomNum = (max) => {
+                    return Math.floor(Math.random() * Math.floor(max));
+                  };
+                let hatRandomRow = randomNum(numRow);
+                let hatRandomCol = randomNum(numCol);
+                myField[hatRandomRow][hatRandomCol] = hat;  // hat starting point
+
+
+                myField[0][0] = pathCharacter; //Player starting point
+                return myField;
+        };
+
+>>>>>>> Stashed changes
     startGame() {
         const prompt = require('prompt-sync')({sigint: true});
         //clears terminal screen to start game
@@ -61,6 +103,7 @@ class Field {
 
     };
 
+<<<<<<< Updated upstream
 
 
 
@@ -78,6 +121,9 @@ const myField = new Field([
   ]);
 
 
+=======
+const myField = new Field (Field.generateField());
+>>>>>>> Stashed changes
 myField.startGame();
 
 
