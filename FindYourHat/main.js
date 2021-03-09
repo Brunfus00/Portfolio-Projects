@@ -24,37 +24,68 @@ class Field {
         let playerY = 0;
         //inside the hatLoc array the X and Y coordinates are opposite..hatLoc[playerY][playerX]
         let hatLoc = [1, 2];
-        while (playerX !== hatLoc[0] || playerY !== hatLoc[1] /*|| (this._field[playerY][playerX]) === hole*/) {
+        while (playerX !== hatLoc[0] || playerY !== hatLoc[1] || (this._field[playerY][playerX]) === hole) {
             myField.print();
             const direction = prompt('Pick a direction (u)p, (d)own, (l)eft, (r)igh: ');
             switch (direction) {
                 case 'u':
                     playerY --;
-                    this._field[playerY][playerX] = '*'
-                    break;
-                case 'd':
-                    playerY ++;
-                    this._field[playerY][playerX] = '*';
-                    break;
-                case 'r':
-                    playerX ++;
-                    this._field[playerY][playerX] = '*'
-                    if (this._field[2][1] === hole) {
+                    if (this._field[playerY][playerX] === hole) {
                         console.log('You FELL in a hole!!!');
                         playerX = hatLoc[0];
                         playerY = hatLoc[1];
                     }  else if (this._field[playerY][playerX] === hat) {
                         console.log('YOU FOUND YOUR HAT!!');
-                    }   
+                    } else {
+                        console.clear();
+                    }
+
+                    this._field[playerY][playerX] = '*'
+                    break;
+                case 'd':
+                    playerY ++;
+                    if (this._field[playerY][playerX] === hole) {
+                        console.log('You FELL in a hole!!!');
+                        playerX = hatLoc[0];
+                        playerY = hatLoc[1];
+                    }  else if (this._field[playerY][playerX] === hat) {
+                        console.log('YOU FOUND YOUR HAT!!');
+                    } else {
+                        console.clear();
+                    }
+                    this._field[playerY][playerX] = '*';
+                    break;
+                case 'r':
+                    playerX ++;
+                    if (this._field[playerY][playerX] === hole) {
+                        console.log('You FELL in a hole!!!');
+                        playerX = hatLoc[0];
+                        playerY = hatLoc[1];
+                    }  else if (this._field[playerY][playerX] === hat) {
+                        console.log('YOU FOUND YOUR HAT!!');
+                    } else {
+                        console.clear();
+                    }
+                    this._field[playerY][playerX] = '*'
                     break;
                 case 'l':
                     playerX --;
+                    if (this._field[playerY][playerX] === hole) {
+                        console.log('You FELL in a hole!!!');
+                        playerX = hatLoc[0];
+                        playerY = hatLoc[1];
+                    }  else if (this._field[playerY][playerX] === hat) {
+                        console.log('YOU FOUND YOUR HAT!!');
+                    } else {
+                        console.clear();
+                    }
                     this._field[playerY][playerX] = '*'
                     break;
                 default: 
                     break;
             }
-            console.clear()  /*clears terminal to redraw board for next move*/
+        //    console.clear()  /*clears terminal to redraw board for next move*/
+           // console.log(this._field[playerY][playerX] = hole);
         };
 
         }
